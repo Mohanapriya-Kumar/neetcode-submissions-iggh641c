@@ -1,16 +1,28 @@
-class Solution {
-    public boolean isValid(String s) {
-        Stack<Character> st = new Stack<>();
-        for(char c : s.toCharArray()){
-            if(c == '(' || c == '[' || c == '{') st.push(c);
-            else{
-                if(st.isEmpty()) return false;
-                char top = st.pop();
-                if((c == ')' && top != '(') ||
-                (c == '}' && top != '{') ||
-                (c == ']' && top != '[')) return false;
-            }
-        }
-        return st.isEmpty();
+class MinStack {
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+    
+    public void push(int val) {
+        stack.push(val);
+        if(minStack.isEmpty() || minStack.peek() >= val) minStack.push(val);
+    }
+    
+    public void pop() {
+        if(!minStack.isEmpty() && stack.peek().equals(minStack.peek())) minStack.pop();
+        if(!stack.isEmpty()) stack.pop();
+    }
+    
+    public int top() {
+        if(!stack.isEmpty()) return stack.peek();
+        return -1;
+    }
+    
+    public int getMin() {
+        if(!minStack.isEmpty()) return minStack.peek();
+        return -1;
     }
 }
