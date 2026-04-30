@@ -12,8 +12,9 @@ class MinStack {
     }
     
     public void pop() {
-        if(!minStack.isEmpty() && stack.peek().equals(minStack.peek())) minStack.pop();
+        if(!minStack.isEmpty() && minStack.peek().equals(stack.peek())) minStack.pop(); //first pop minstack
         if(!stack.isEmpty()) stack.pop();
+        
     }
     
     public int top() {
